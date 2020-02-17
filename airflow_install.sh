@@ -18,38 +18,41 @@ yum -y install python36u-pip
 #Update Python development tools
 
 yum -y install python36u-devel
+python3 -m pip install --upgrade pip setuptools wheel
+
+ln -s /usr/local/bin/pip3 pip
 
 #Upgrade setuptools if needed.
 
-pip3.6 install — upgrade pip
-pip install — upgrade setuptools
+#pip3.6 install — upgrade pip
+#pip install — upgrade setuptools
 
 #Basics python packages for Apache Airflow
 
-pip install -U pip setuptools wheel
-pip install pytz
-pip install pyOpenSSL
-pip install ndg-httpsclient
+#pip install -U pip setuptools wheel
+#pip install pytz
+#pip install pyOpenSSL
+#pip install ndg-httpsclient
 
 #One of the dependencies of Apache Airflow by default pulls in a GPL library (‘unidecode’). In case this is a concern you can force a non GPL library by issuing export SLUGIFY_USES_TEXT_UNIDECODE=yes and then proceed with the normal installation
 #https://airflow.apache.org/installation.html
 
-export SLUGIFY_USES_TEXT_UNIDECODE=yes
+#export SLUGIFY_USES_TEXT_UNIDECODE=yes
 #install Apache Airflow
 
-pip install apache-airflow
+#pip install apache-airflow
 #Intiating Airflow DB , by default Apache airflow use Sqllite
 
-airflow initdb
-Export Airflow_home to /root/airflow
-export AIRFLOW_HOME=/root/airflow
+#airflow initdb
+#Export Airflow_home to /root/airflow
+#export AIRFLOW_HOME=/root/airflow
 #Start Apache Airflow webserver
 
-airflow webserver -p 8080
+#airflow webserver -p 8080
 #Set up Mysql as backend/Metadata DB for Apache Airflow
 
-yum install mariadb-devel — skip-broken
-pip install Apache-airflow[mysql]
+#yum install mariadb-devel — skip-broken
+#pip install Apache-airflow[mysql]
 #on Mysql server
 
 ##SET explicit_defaults_for_timestamp=1
