@@ -20,4 +20,4 @@ yum -y install python36u-pip
 yum -y install python36u-devel
 python3 -m pip install --upgrade pip setuptools wheel
 
-ln -s /usr/local/bin/pip3 pip
+ln -s /usr/local/bin/pip3 /bin/pip
