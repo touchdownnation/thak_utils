@@ -38,3 +38,14 @@ EOF
 #JAVA 
 
 wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
+
+
+cat <<EOF > /etc/profile.d/javajdk.sh
+export PATH=$PATH:/usr/java/jdk1.8.0_241-amd64/bin
+export JAVA_HOME=/usr/java/jdk1.8.0_241-amd64
+export JRE_HOME=/usr/java/jdk1.8.0_241-amd64/jre/
+export J2SDKDIR=/usr/java/jdk1.8.0_241-amd64
+export J2REDIR=/usr/java/jdk1.8.0_241-amd64/jre
+EOF
+
+echo "source /etc/profile.d/javajdk.sh" >> ~/.bash_profile
