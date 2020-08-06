@@ -1,0 +1,305 @@
+kafka
+
+1. ktbcsmqbd01 : 100.127.197.136 (internal IP : 100.127.210.92)
+2. ktbcsmqbd02 : 100.127.197.36 (internal IP : 100.127.210.214)
+3. ktbcsmqbd03 : 100.127.192.93 (internal IP : 100.127.210.64)
+
+
+user : appusr
+password : V@yu_2020!
+
+su - root
+P@ssw0rd
+
+
+
+etc/hosts
+
+100.127.210.92   ktbcs-kafka-01.ktbcs.co.th   ktbcs-kafa-01
+100.127.210.214  ktbcs-kafka-02.ktbcs.co.th   ktbcs-kafa-02
+100.127.210.64   ktbcs-kafka-03.ktbcs.co.th   ktbcs-kafa-03
+
+
+##
+ssh passwordlesss >> Kafka user
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDSblmasMC9FSkxdjcvCYnMRdASoqfDWhj9Ka6Lcjf90r7fOc5+fXDXA6kba+yT3sMs7w60yx6IE4/i/uH1sWtXfna5BKojWIpbClAZlXMdgq4TrYDjXrR6zQCk52gSnyOb59ZrPD3b+8HDYrz9KAV5CcczsjG0JPFe/G/6P7uQSt7Ia4S0whU7Ix8UAYj1zoHFKsIY0TzQmypoFWw0eI0VivpT9cF/ah+O5OuLxF6FxjGh1K0hftOZkXx+7G3jrQw/6CE/AiHF1L/CwB+fOQRjHn+sn19pQ03dkCgYwbK8SDKN1aEr01JkFnb/cf0j6u7JD6Kubj3u7ksYiyoQB6mfvp9hjBuCYCy8BvXq+2Q0k8gLBTOzAm5jRqY3SDj7Gh20/tpY1fKoqsoV8VPf/QMgYeqnTo5/ymH8U1OTCtPW3p2coSOkOgE91wyibcfCIq7lqWx6rDWviIE6Lid11a+Dc6W0ZOJZsczpyPEU95ZQxhwLop0Fvb0xB6JT7sclihE= kafka@ktbcs-kafka-01.ktbcs.co.th
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDQDLTcS3+EJ34tJ1eX/f14Tw0MTuh71/ABdRToesNHwwd090JRFR7uOnvXof5CaUPd2/ipdgOQW6t6fS1vFty8QaHfFnTL9WCnEg5sWW3lBnSBUfifmUXdDewaTo7bmCMl5mnvRsiyrpmtUhjdwvOM3VqOHKKg1YLGky2+wSHqObhQJV4r9lNsFoS4rAwe/M24mX21xen69OSELVDLgQEnKmb2PsQeB3pTR9oMRMFF+DferTPTJhj/xTFxahrzZO1kDpwERlXA7LHcqiDAp7f0KxK2Fa4C6oBxCavSxLw+DmbPr5guF2kauXI7mnQcphTqNlDpPwwToJmdoo60+0enIJNkopH2yYdLlsyU3DtHvd/x5APh3FBIKAuP5PplAvLLC/pmU2Js2lChpQhgCBWCrRRv1Y8tw/UXhvN+v8YQGVdOGEGddrSZ8N5oN/PgZIYPXamF33JhFVf9hQYEiYDZdRR5PewrkmwEmWdVLWTtZfvYdihNSBK7poEw1xJuXG8= kafka@ktbcs-kafka-02.ktbcs.co.th
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDTNNCMRlGsjRIA0RZDYZ8BEimDuO5tmrhMfBUZ5gBwRomKvv3bV1T1/j+gj1YejBItJtYWeyM8SHBAuU39+f5GIoxuZe+udI0TLvHOdEBoJXXWFi7UiT24zfI1/eSqDmhw7//UncFjj/JQYosPwVWPuCS4CQT8DGyaIQ2T4qTlfRkqSfPVpr+SzdVEFRmXjXoBysBlTIA6Mz8R2wx2NQOC5Yn6KT18QQtaSqMfLceC9Uw4iReakOREG+JxlkWhJtQuKe3fu+6hT7WP9tH069dqOEeCZlTSXKJ6nvwkuwAePu5aSuBjNmQZEsRty5W/NtR2vyYw4T0WafW0AtzzGc0iz0aBh12hju6kic68sYwXi3NJ483iseurNM16pSloiRiATj+BdPPUb4KtzlVnEaRrguJkSQGYUczZmOZBaVa0GtvLtPhOfhyHn0CHAMjK4H/qJ7fvupqj9cWo9jKjujz8YW0GNxv8zeigGtOUdT39xG9h13TrNkmQtPB0S/7CyAU= kafka@ktbcs-kafka-03.ktbcs.co.th
+
+
+
+
+mkdir -p /opt
+
+tar -xzf apache-zookeeper-3.6.1-bin.tar.gz
+tar -xzf apache-zookeeper-3.6.1-bin.tar.gz
+mv kafka_2.13-2.6.0 kafka
+mv apache-zookeeper-3.6.1-bin zookeeper
+
+
+TEST lib 
+# Start Zookeeper
+> bin/zookeeper-server-start.sh config/zookeeper.properties
+
+# Start Kafka Server
+> bin/kafka-server-start.sh config/server.properties
+
+
+# Run built-in script to create new topic named "test" with 1 partition on 1 node
+> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+Created topic test.
+
+# See the topic
+> bin/kafka-topics.sh --list --zookeeper localhost:2181
+test
+
+
+# Run the producer in terminal and enter some messages
+> bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+message 1
+message 2
+message 3
+message 4 ktbcs
+
+# In a new terminal window read the messages
+> bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+message 1
+message 2
+message 3
+message 4 ktbcs
+^CProcessed a total of 4 messages
+
+
+# Test Create config files for each new broker
+> cp config/server.properties config/server-1.properties
+> cp config/server.properties config/server-2.properties
+
+# Update the following properties in the new files
+config/server-1.properties:
+    broker.id=1
+    listeners=PLAINTEXT://ktbcs-kafka-02.ktbcs.co.th:9093
+    log.dir=/tmp/kafka-logs-1
+
+config/server-2.properties:
+    broker.id=2
+    listeners=PLAINTEXT://ktbcs-kafka-03.ktbcs.co.th:9094
+    log.dir=/tmp/kafka-logs-2
+
+# Start the two new nodes in separate termial windows
+# You should already have Zookeeper running
+> bin/kafka-server-start.sh config/server-1.properties &
+...
+> bin/kafka-server-start.sh config/server-2.properties &
+...
+
+
+## bin/kafka-server-start.sh config/server-1.properties &
+
+[root@ktbcs-kafka-01 kafka]# bin/kafka-server-start.sh config/server-1.properties &
+[1] 6834
+[root@ktbcs-kafka-01 kafka]#
+[root@ktbcs-kafka-01 kafka]# [2020-08-06 18:07:13,901] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
+[2020-08-06 18:07:13,961] ERROR Exiting Kafka due to fatal exception (kafka.Kafka$)
+java.nio.file.NoSuchFileException: config/server-1.properties
+        at sun.nio.fs.UnixException.translateToIOException(UnixException.java:86)
+        at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+        at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+        at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
+        at java.nio.file.Files.newByteChannel(Files.java:361)
+        at java.nio.file.Files.newByteChannel(Files.java:407)
+        at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:384)
+        at java.nio.file.Files.newInputStream(Files.java:152)
+        at org.apache.kafka.common.utils.Utils.loadProps(Utils.java:623)
+        at kafka.Kafka$.getPropsFromArgs(Kafka.scala:51)
+        at kafka.Kafka$.main(Kafka.scala:67)
+        at kafka.Kafka.main(Kafka.scala)
+
+[root@ktbcs-kafka-01 kafka]#
+
+[kafka@ktbcs-kafka-01 kafka]$ bin/kafka-server-start.sh config/server-1.properties
+[2020-08-06 18:10:45,525] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
+[2020-08-06 18:10:45,585] ERROR Exiting Kafka due to fatal exception (kafka.Kafka$)
+java.nio.file.NoSuchFileException: config/server-1.properties
+        at sun.nio.fs.UnixException.translateToIOException(UnixException.java:86)
+        at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+        at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+        at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
+        at java.nio.file.Files.newByteChannel(Files.java:361)
+        at java.nio.file.Files.newByteChannel(Files.java:407)
+        at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:384)
+        at java.nio.file.Files.newInputStream(Files.java:152)
+        at org.apache.kafka.common.utils.Utils.loadProps(Utils.java:623)
+        at kafka.Kafka$.getPropsFromArgs(Kafka.scala:51)
+        at kafka.Kafka$.main(Kafka.scala:67)
+        at kafka.Kafka.main(Kafka.scala)
+[kafka@ktbcs-kafka-01 kafka]$ bin/kafka-server-start.sh config/server-2.properties
+[2020-08-06 18:11:05,320] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
+[2020-08-06 18:11:05,378] ERROR Exiting Kafka due to fatal exception (kafka.Kafka$)
+java.nio.file.NoSuchFileException: config/server-2.properties
+        at sun.nio.fs.UnixException.translateToIOException(UnixException.java:86)
+        at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+        at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+        at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
+        at java.nio.file.Files.newByteChannel(Files.java:361)
+        at java.nio.file.Files.newByteChannel(Files.java:407)
+        at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:384)
+        at java.nio.file.Files.newInputStream(Files.java:152)
+        at org.apache.kafka.common.utils.Utils.loadProps(Utils.java:623)
+        at kafka.Kafka$.getPropsFromArgs(Kafka.scala:51)
+        at kafka.Kafka$.main(Kafka.scala:67)
+        at kafka.Kafka.main(Kafka.scala)
+[kafka@ktbcs-kafka-01 kafka]$
+
+
+
+
+
+
+
+# Create new topic replicated to all 3 nodes
+> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic my-replicated-topic
+
+# See stats about our new topic
+> bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic my-replicated-topic
+Topic:my-replicated-topic	PartitionCount:1	ReplicationFactor:3	Configs:
+	Topic: my-replicated-topic	Partition: 0	Leader: 1	Replicas: 1,2,0	Isr: 1,2,0
+
+# Compare this to our 'test' topic
+> bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test
+Topic:test	PartitionCount:1	ReplicationFactor:1	Configs:
+	Topic: test	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
+
+
+# Send some messages to our replicated topic, then kill the producer
+> bin/kafka-console-producer.sh --broker-list localhost:9092 --topic my-replicated-topic
+...
+my test message 1
+my test message 2
+^C
+
+# Read messages from topic
+> bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic my-replicated-topic
+...
+my test message 1
+my test message 2
+^C
+
+# Now kill Broker 1
+> ps aux | grep server-1.properties
+7564 ttys002    0:15.91 /System/Library/Frameworks/JavaVM.framework/Versions/1.8/Home/bin/java...
+> kill -9 7564
+
+# For Windows use:
+> wmic process get processid,caption,commandline | find "java.exe" | find "server-1.properties"
+java.exe    java  -Xmx1G -Xms1G -server -XX:+UseG1GC ... build\libs\kafka_2.10-0.10.1.0.jar"  kafka.Kafka config\server-1.properties    644
+> taskkill /pid 644 /f
+
+# Check which node is the leader for our topic now
+> bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic my-replicated-topic
+
+# Try reading the messages again
+> bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic my-replicated-topic
+...
+my test message 1
+my test message 2
+^C
+
+
+# Create a simple text file to work with that has 2 lines
+> echo -e "foo\nbar" > test.txt
+
+# Setup connector in standalone mode
+# pass in connection properties config
+# then file connection config
+# then file sync config (serialization)
+# all configs here ship w/ Kafka and act as templates
+> bin/connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties config/connect-file-sink.properties
+
+# Once the above connector starts running, it will read test.txt
+# and write to test.sink.txt
+# We can see this by reading the contents of the file
+> cat test.sink.txt
+foo
+bar
+
+# To see the data in the consumer run the following
+> bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic connect-test --from-beginning
+
+# In a separate terminal window, add some lines to the file
+echo "Another line" >> test.txt
+
+# Run built-in WordCount algorithm on data stream
+# This demo application behaves slightly differently because it is designed to
+# operate on an infinite, unbounded stream of data instead of a bound file
+
+# Create some data in a file
+> echo -e "all streams lead to kafka\nhello kafka streams\njoin kafka summit" > file-input.txt
+
+# OR on Windows
+> echo all streams lead to kafka> file-input.txt
+> echo hello kafka streams>> file-input.txt
+> echo|set /p=join kafka summit>> file-input.txt
+
+# Send data to new topic
+> bin/kafka-topics.sh --create \
+            --zookeeper localhost:2181 \
+            --replication-factor 1 \
+            --partitions 1 \
+            --topic streams-file-input
+
+# Send data to the topic
+> bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streams-file-input < file-input.txt
+
+# Run WordCount application, this will terminate after a few seconds
+> bin/kafka-run-class.sh org.apache.kafka.streams.examples.wordcount.WordCountDemo
+
+# Inspect the output by reading from the topic where the data was written
+# Use the built-in String and Long deserializers
+> bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 \
+            --topic streams-wordcount-output \
+            --from-beginning \
+            --formatter kafka.tools.DefaultMessageFormatter \
+            --property print.key=true \
+            --property print.value=true \
+            --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+            --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+
+# Output should look like the following
+all     1
+lead    1
+to      1
+hello   1
+streams 2
+join    1
+kafka   3
+summit  1
+
+
+
+
+
+
+
+
+
+
+https://rmoff.net/2018/08/02/kafka-listeners-explained/
+listeners=PLAINTEXT://kafka-broker-host-name:9092,SSL://kafka-broker-host-name:9093
+advertised.listeners=PLAINTEXT://kafka-broker-host-name:9092,SSL://kafka-broker-host-name:9093
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
