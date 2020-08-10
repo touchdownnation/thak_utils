@@ -25,7 +25,7 @@ syncLimit=10
 
 ##Zk start
 /opt/apche_kafka/zookeeper/bin/zkServer.sh start /opt/apche_kafka/zookeeper/conf/zookeeper.properties
-
+/opt/apche_kafka/zookeeper/bin/zkServer.sh status
 ##kafka start
 /opt/apche_kafka/kafka/bin/kafka-server-start.sh  /opt/apche_kafka/kafka/config/server.properties
 
