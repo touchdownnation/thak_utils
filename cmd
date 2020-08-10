@@ -30,19 +30,39 @@ syncLimit=10
 /opt/apche_kafka/kafka/bin/kafka-server-start.sh  /opt/apche_kafka/kafka/config/server.properties
 
 #create topic
-/opt/apche_kafka/kafka/bin/kafka-topics.sh --create --zookeeper 172.26.60.45:2181,172.26.60.46:2181,172.26.60.47:2181 --replication-factor 3 --partitions 3 --topic test_replica3
+/opt/apche_kafka/kafka/bin/kafka-topics.sh --create --zookeeper 172.26.60.45:2181,172.26.60.46:2181,172.26.60.47:2181 --replication-factor 3 --partitions 3 --topic TestReplica3
+Created topic TestReplica3
+
+#delete topic
+/opt/apche_kafka/kafka/bin/kafka-topics.sh --zookeeper 172.26.60.45:2181,172.26.60.46:2181,172.26.60.47:2181 --delete --topic XXXX
 
 #list topic
 /opt/apche_kafka/kafka/bin/kafka-topics.sh --list --zookeeper 172.26.60.45:2181,172.26.60.46:2181,172.26.60.47:2181
 
 #producer
-/opt/apche_kafka/kafka/bin/kafka-console-producer.sh --broker-list 172.26.60.45:9092,172.26.60.46:9092,172.26.60.47:9092 --topic test_replica3
+/opt/apche_kafka/kafka/bin/kafka-console-producer.sh --broker-list 172.26.60.45:9092,172.26.60.46:9092,172.26.60.47:9092 --topic TestReplica3
 
 #Consumer
-/opt/apche_kafka/kafka/bin/kafka-console-consumer.sh --bootstrap-server 172.26.60.45:9092,172.26.60.46:9092,172.26.60.47:9092 --topic test_replica3 --from-beginning
+/opt/apche_kafka/kafka/bin/kafka-console-consumer.sh --bootstrap-server 172.26.60.45:9092,172.26.60.46:9092,172.26.60.47:9092 --topic TestReplica3 --from-beginning
 
+
+
+
+
+
+
+https://kafka.apache.org/0102/documentation.html#quickstart
+
+
+
+https://kafka.apache.org/0102/documentation.html#connect_configuring
 
 ## Test import
+
+Distb
+bin/connect-distributed.sh config/connect-distributed.properties config/connect-file-source-distb1.properties config/connect-file-sink.properties
+
+
 
 # This code is made for Unix-based systems such as Linux and Mac OSX
 # For Windows use bin\windows\ instead of bin/, and change the script extension
