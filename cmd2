@@ -1,16 +1,11 @@
-
 ZK data dir
-dataDir=/opt/data/zookeeper_data
-
-log.dirs=/opt/data/kafka-logs
+dataDir=/apps/data/zookeeper_data
+log.dirs=/apps/data/kafka-logs
 
 zookeeper.connect=100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181
 
 
-
-
-
-dataDir=/opt/data/zookeeper_data
+dataDir=/apps/data/zookeeper_data
 
 clientPort=2181
 maxClientCnxns=200
@@ -24,33 +19,33 @@ syncLimit=10
 
 
 ##Zk start
-/opt/apche_kafka/zookeeper/bin/zkServer.sh start /opt/apche_kafka/zookeeper/conf/zookeeper.properties
+/apps/apche_kafka/zookeeper/bin/zkServer.sh start /apps/apche_kafka/zookeeper/conf/zookeeper.properties
 
-/opt/apche_kafka/zookeeper/bin/zkServer.sh status
+/apps/apche_kafka/zookeeper/bin/zkServer.sh status
 ##kafka start
-/opt/apche_kafka/kafka/bin/kafka-server-start.sh  /opt/apche_kafka/kafka/config/server.properties
-nohup /opt/apche_kafka/kafka/bin/kafka-server-start.sh  /opt/apche_kafka/kafka/config/server.properties &
+/apps/apche_kafka/kafka/bin/kafka-server-start.sh  /apps/apche_kafka/kafka/config/server.properties
+nohup /apps/apche_kafka/kafka/bin/kafka-server-start.sh  /apps/apche_kafka/kafka/config/server.properties &
 
 #list broker 
-/opt/apche_kafka/kafka/bin/zookeeper-shell.sh 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181 ls /brokers/ids 
+/apps/apche_kafka/kafka/bin/zookeeper-shell.sh 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181 ls /brokers/ids 
 
 #create topic
-/opt/apche_kafka/kafka/bin/kafka-topics.sh --create --zookeeper 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181 --replication-factor 3 --partitions 3 --topic test_replica3
+/apps/apche_kafka/kafka/bin/kafka-topics.sh --create --zookeeper 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181 --replication-factor 3 --partitions 3 --topic test_replica3
 
 
-      >> [root@ktbcsmqbd01 tmp]# /opt/apche_kafka/kafka/bin/kafka-topics.sh --create --zookeeper 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181 --replication-factor 3 --partitions 3 --topic test_replica3
+      >> [root@ktbcsmqbd01 tmp]# /apps/apche_kafka/kafka/bin/kafka-topics.sh --create --zookeeper 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181 --replication-factor 3 --partitions 3 --topic test_replica3
       WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
       Created topic test_replica3.
 
 #list topic
-/opt/apche_kafka/kafka/bin/kafka-topics.sh --list --zookeeper 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181
+/apps/apche_kafka/kafka/bin/kafka-topics.sh --list --zookeeper 100.127.210.92:2181,100.127.210.214:2181,100.127.210.64:2181
 test_replica3
 
 #producer
-/opt/apche_kafka/kafka/bin/kafka-console-producer.sh --broker-list 100.127.210.92:9092,100.127.210.214:9092,100.127.210.64:9092 --topic test_replica3
+/apps/apche_kafka/kafka/bin/kafka-console-producer.sh --broker-list 100.127.210.92:9092,100.127.210.214:9092,100.127.210.64:9092 --topic test_replica3
 
 #Consumer
-/opt/apche_kafka/kafka/bin/kafka-console-consumer.sh --bootstrap-server 100.127.210.92:9092,100.127.210.214:9092,100.127.210.64:9092 --topic test_replica3 --from-beginning
+/apps/apche_kafka/kafka/bin/kafka-console-consumer.sh --bootstrap-server 100.127.210.92:9092,100.127.210.214:9092,100.127.210.64:9092 --topic test_replica3 --from-beginning
 
 
 ## Test import
@@ -81,3 +76,15 @@ bar
 
 # In a separate terminal window, add some lines to the file
 echo "Another line" >> test.txt
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
