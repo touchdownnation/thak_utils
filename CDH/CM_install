@@ -1,0 +1,29 @@
+
+
+##Repo
+cat >>/etc/yum.repos.d/cm.repo<<EOF
+[cloudera-manager]
+name=Cloudera Manager 6.3.1
+baseurl=https://archive.cloudera.com/cm6/6.3.1/redhat7/yum/
+gpgkey=https://archive.cloudera.com/cm6/6.3.1/redhat7/yum/RPM-GPG-KEY-cloudera
+gpgcheck=1
+enabled=1
+autorefresh=0
+EOF
+
+#Installl CM 
+sudo yum install cloudera-manager-daemons cloudera-manager-agent cloudera-manager-server
+
+##CM DB Config
+sudo /opt/cloudera/cm/schema/scm_prepare_database.sh mysql scm scm
+Enter SCM password: 
+JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera
+Verifying that we can write to /etc/cloudera-scm-server
+Creating SCM configuration file in /etc/cloudera-scm-server
+Executing:  /usr/java/jdk1.8.0_181-cloudera/bin/java -cp /usr/share/java/mysql-connector-java.jar:/usr/share/java/oracle-connector-java.jar:/usr/share/java/postgresql-connector-java.jar:/opt/cloudera/cm/schema/../lib/* com.cloudera.enterprise.dbutil.DbCommandExecutor /etc/cloudera-scm-server/db.properties com.cloudera.cmf.db.
+[                          main] DbCommandExecutor              INFO  Successfully connected to database.
+All done, your SCM database is configured correctly!
+[root@cdh-mgmt-01 mysql-connector-java-5.1.46]# 
+
+
+sudo systemctl start cloudera-scm-server
