@@ -1,0 +1,60 @@
+
+
+
+
+sudo systemctl disable firewalld
+sudo systemctl stop firewalld
+
+sudo systemctl enable ntpd
+sudo systemctl start ntpd
+sudo systemctl status ntpd
+
+ntpdate -u <ntp_server>
+
+sudo yum -y install oracle-j2sdk1.8
+
+#Addhost
+cat >>/etc/hosts<<EOF
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+172.26.60.61  cdh-mgmt-01.poc.yits.com cdh-mgmt-01
+172.26.60.62  cdh-master-01.poc.yits.com cdh-master-01
+172.26.60.63  cdh-master-02.poc.yits.com cdh-master-02
+172.26.60.64  cdh-master-03.poc.yits.com cdh-master-03
+172.26.60.65  cdh-worker-01.poc.yits.com cdh-worker-01
+172.26.60.66  cdh-worker-02.poc.yits.com cdh-worker-02
+172.26.60.67  cdh-worker-03.poc.yits.com cdh-worker-03
+EOF
+
+#
+sudo yum install cloudera-manager-daemons cloudera-manager-agent cloudera-manager-server
+
+(1/27): MySQL-python-1.2.5-1.el7.x86_64.rpm                                                                                                                                                                     |  90 kB  00:00:00     
+(2/27): cloudera-manager-agent-6.2.1-1426065.el7.x86_64.rpm                                                                                                                                                     | 9.7 MB  00:00:07     
+(3/27): keyutils-libs-devel-1.5.8-3.el7.x86_64.rpm                                                                                                                                                              |  37 kB  00:00:00     
+(4/27): e2fsprogs-1.42.9-19.el7.x86_64.rpm                                                                                                                                                                      | 701 kB  00:00:00     
+(5/27): krb5-devel-1.15.1-50.el7.x86_64.rpm                                                                                                                                                                     | 273 kB  00:00:00     
+(6/27): e2fsprogs-libs-1.42.9-19.el7.x86_64.rpm                                                                                                                                                                 | 168 kB  00:00:00     
+(7/27): libcom_err-1.42.9-19.el7.x86_64.rpm                                                                                                                                                                     |  42 kB  00:00:00     
+(8/27): libkadm5-1.15.1-50.el7.x86_64.rpm                                                                                                                                                                       | 179 kB  00:00:00     
+(9/27): libcom_err-devel-1.42.9-19.el7.x86_64.rpm                                                                                                                                                               |  32 kB  00:00:00     
+(10/27): libselinux-devel-2.5-15.el7.x86_64.rpm                                                                                                                                                                 | 187 kB  00:00:00     
+(11/27): krb5-libs-1.15.1-50.el7.x86_64.rpm                                                                                                                                                                     | 809 kB  00:00:00     
+(12/27): libss-1.42.9-19.el7.x86_64.rpm                                                                                                                                                                         |  47 kB  00:00:00     
+(13/27): cloudera-manager-server-6.2.1-1426065.el7.x86_64.rpm                                                                                                                                                   | 9.8 kB  00:00:00     
+(14/27): libverto-devel-0.2.5-4.el7.x86_64.rpm                                                                                                                                                                  |  12 kB  00:00:00     
+(15/27): libsepol-devel-2.5-10.el7.x86_64.rpm                                                                                                                                                                   |  77 kB  00:00:00     
+(16/27): mod_ssl-2.4.6-97.el7.centos.x86_64.rpm                                                                                                                                                                 | 114 kB  00:00:00     
+(17/27): openssl-1.0.2k-21.el7_9.x86_64.rpm                                                                                                                                                                     | 493 kB  00:00:00     
+(18/27): pcre-devel-8.32-17.el7.x86_64.rpm                                                                                                                                                                      | 480 kB  00:00:00     
+(19/27): openssl-libs-1.0.2k-21.el7_9.x86_64.rpm                                                                                                                                                                | 1.2 MB  00:00:00     
+(20/27): openssl-devel-1.0.2k-21.el7_9.x86_64.rpm                                                                                                                                                               | 1.5 MB  00:00:00     
+(21/27): python-psycopg2-2.5.1-4.el7.x86_64.rpm                                                                                                                                                                 | 132 kB  00:00:00     
+(22/27): postgresql-libs-9.2.24-4.el7_8.x86_64.rpm                                                                                                                                                              | 234 kB  00:00:00     
+(23/27): redhat-lsb-submod-security-4.1-27.el7.centos.1.x86_64.rpm                                                                                                                                              |  15 kB  00:00:00     
+(24/27): zlib-devel-1.2.7-18.el7.x86_64.rpm                                                                                                                                                                     |  50 kB  00:00:00     
+(25/27): redhat-lsb-core-4.1-27.el7.centos.1.x86_64.rpm                                                                                                                                                         |  38 kB  00:00:00     
+(26/27): spax-1.5.2-13.el7.x86_64.rpm                                                                                                                                                                           | 260 kB  00:00:00     
+(27/27): cloudera-manager-daemons-6.2.1-1426065.el7.x86_64.rpm 
+
+
