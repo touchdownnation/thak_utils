@@ -26,6 +26,40 @@ cat >>/etc/hosts<<EOF
 172.26.60.67  cdh-worker-03.poc.yits.com cdh-worker-03
 EOF
 
+#disk
+
+fdisk -l
+mkfs.ext4 /dev/sdb
+
+mkdir -p /data
+mkdir -p /data/01
+mount /dev/sdb /data/01
+
+/dev/sdb /data/01  ext4 defaults        0 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #
 sudo yum install cloudera-manager-daemons cloudera-manager-agent cloudera-manager-server
 
