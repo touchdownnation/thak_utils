@@ -1,0 +1,62 @@
+yum install sssd realmd oddjob oddjob-mkhomedir adcli samba-common samba-common-tools krb5-workstation openldap-clients policycoreutils-python -y
+
+
+realm join --user=thak OU=cdh-server,OU=cdh6,DC=yits,DC=com
+
+
+realm join yits-cdhadserver.yits.com --computer-ou="OU=cdh-server,OU=cdh6,DC=yits,DC=com"  --user=Administrator
+
+
+[root@cdh-mgmt-01 ~]# realm join yits-cdhadserver.yits.com --computer-ou="OU=cdh-server,OU=cdh6,DC=yits,DC=com"  --user=Administrator
+Password for Administrator: 
+[root@cdh-mgmt-01 ~]# 
+
+[root@cdh-mgmt-01 ~]# realm list
+yits.com
+  type: kerberos
+  realm-name: YITS.COM
+  domain-name: yits.com
+  configured: kerberos-member
+  server-software: active-directory
+  client-software: sssd
+  required-package: oddjob
+  required-package: oddjob-mkhomedir
+  required-package: sssd
+  required-package: adcli
+  required-package: samba-common-tools
+  login-formats: %U@yits.com
+  login-policy: allow-realm-logins
+
+
+
+[root@cdh-mgmt-01 ~]# cat  /etc/sssd/sssd.conf
+
+[sssd]
+domains = yits.com
+config_file_version = 2
+services = nss, pam
+
+[domain/yits.com]
+ad_server = yits-cdhadserver.yits.com
+ad_domain = yits.com
+krb5_realm = YITS.COM
+realmd_tags = manages-system joined-with-adcli 
+cache_credentials = True
+id_provider = ad
+krb5_store_password_if_offline = True
+default_shell = /bin/bash
+ldap_id_mapping = True
+use_fully_qualified_names = False
+fallback_homedir = /home/%u
+access_provider = ad
+[root@cdh-mgmt-01 ~]# 
+
+systemctl restart sssd
+
+  [root@cdh-mgmt-01 ~]# id Administrator
+uid=619600500(administrator) gid=619600513(domain users) groups=619600513(domain users),619600512(domain admins),619600519(enterprise admins),619600520(group policy creator owners),619600572(denied rodc password replication group),619600518(schema admins)
+[root@cdh-mgmt-01 ~]# 
+[root@cdh-mgmt-01 ~]# 
+[root@cdh-mgmt-01 ~]# id thak
+uid=619601106(thak) gid=619600513(domain users) groups=619600513(domain users),619601108(data_admin)
+[root@cdh-mgmt-01 ~]# 
